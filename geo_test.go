@@ -49,8 +49,6 @@ func TestPointsWithinRadiusIntegration(t *testing.T) {
 }
 
 // TODO Test sql configuration
-// TODO Test Great Circle Distance
-// TODO Test Point At Distance And Bearing
 
 func FlushTestDB(s *SQLMapper) {
 	s.sqlConn.Exec("DELETE FROM points;")

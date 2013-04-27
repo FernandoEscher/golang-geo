@@ -10,12 +10,10 @@ import (
 )
 
 // A Geocoder that makes use of open street map's geocoding service
-type MapQuestGeocoder struct {
-	// TODO Figure out a better way to initialize mapquest geocoders
-	//   - client ???
-	//   - apiUrl ???
-}
+type MapQuestGeocoder struct {}
 
+// @param [string] url.  The URL suffix used to query the nominaim API.
+// @return [[] byte] data.  The resultant JSON body from the HTTP API Request.
 func (g *MapQuestGeocoder) Request(url string) ([]byte, error) {
 	client := &http.Client{}
 
@@ -66,6 +64,8 @@ func (g *MapQuestGeocoder) extractLatLngFromResponse(data []byte) (float64, floa
 	return lat, lng
 }
 
+// @param [Point] p.  The point in which to reverse geocode.
+// @return [string] resStr.  The resultant Address from the mapquest api request.
 func (g *MapQuestGeocoder) ReverseGeocode(p *Point) (string, error) {
 	data, err := g.Request(fmt.Sprintf("reverse.php?lat=%f&lon=%f&format=json", p.lat, p.lng))
 	if err != nil {
@@ -77,6 +77,8 @@ func (g *MapQuestGeocoder) ReverseGeocode(p *Point) (string, error) {
 	return resStr, nil
 }
 
+// @param [[]byte] data.  The resultant json data from the mapquest api request.
+// @return [string] resStr.  The resultant Address from the mapquest api request.
 func (g *MapQuestGeocoder) extractAddressFromResponse(data []byte) string {
 	res := make(map[string]map[string]string)
 	json.Unmarshal(data, &res)
