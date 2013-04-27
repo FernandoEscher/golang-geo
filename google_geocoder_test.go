@@ -28,7 +28,7 @@ func TestExtractAddressFromResponse(t *testing.T) {
 // From a known successful google geocoder response.
 func TestExtractLatLngFromRequest(t *testing.T) {
 	g := &GoogleGeocoder{}
-	
+
 	data, err := GetMockResponse("test/helpers/google_geocode_success.json")
 	if err != nil {
 		t.Error("%v\n", err)
@@ -36,12 +36,12 @@ func TestExtractLatLngFromRequest(t *testing.T) {
 
 	lat, lng := g.extractLatLngFromResponse(data)
 	if lat != 37.615223 && lng != -122.389979 {
-		t.Error(fmt.Sprintf("Expected: [37.615223, -122.389979], Got: [%f, %f]", lat, lng)) 
+		t.Error(fmt.Sprintf("Expected: [37.615223, -122.389979], Got: [%f, %f]", lat, lng))
 	}
 }
 
 // Returns a byte array that represents the response of the google api request
-func GetMockResponse(s string) ([]byte, error)  {
+func GetMockResponse(s string) ([]byte, error) {
 	dataPath := path.Join(s)
 	_, readErr := os.Stat(dataPath)
 	if readErr != nil && os.IsNotExist(readErr) {

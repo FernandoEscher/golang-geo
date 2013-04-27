@@ -35,6 +35,8 @@ func (g *GoogleGeocoder) Request(params string) ([]byte, error) {
 	return data, nil
 }
 
+// @param [string] query.  The address to geocode.
+// @return [Point] p.  The first {Point} interpreted from the google geocoding api response.
 func (g *GoogleGeocoder) Geocode(query string) (*Point, error) {
 	url_safe_query := url.QueryEscape(query)
 	data, err := g.Request(fmt.Sprintf("address=%s", url_safe_query))
@@ -48,9 +50,7 @@ func (g *GoogleGeocoder) Geocode(query string) (*Point, error) {
 	return p, nil
 }
 
-// private
-// TODO Refactor out of MapQuestGeocoder
-// @param [[]byte] data.  The response struct from the earlier mapquest request as an array of bytes.
+// @param [[]byte] data.  The response struct from the earlier google geocode request as an array of bytes.
 // @return [float64] lat.  The first point's latitude in the response. 
 // @return [float64] lng.  The first point's longitude in the response. 
 func (g *GoogleGeocoder) extractLatLngFromResponse(data []byte) (float64, float64) {
@@ -63,6 +63,8 @@ func (g *GoogleGeocoder) extractLatLngFromResponse(data []byte) (float64, float6
 	return lat, lng
 }
 
+// @param [Point] p.  The Point struct in which to find the address.
+// @return [string] s.  The resulting address from the google geocoding api.
 func (g *GoogleGeocoder) ReverseGeocode(p *Point) (string, error) {
 	data, err := g.Request(fmt.Sprintf("latlng=%f,%f", p.lat, p.lng))
 	if err != nil {
@@ -74,6 +76,8 @@ func (g *GoogleGeocoder) ReverseGeocode(p *Point) (string, error) {
 	return resStr, nil
 }
 
+// @param [[]byte] data.  The response string from the earlier google geocode request as an array of bytes.
+// @return [string] resStr.  The first address from the google geocoding api.
 func (g *GoogleGeocoder) extractAddressFromResponse(data []byte) string {
 	res := make(map[string][]map[string]interface{}, 0)
 	json.Unmarshal(data, &res)
