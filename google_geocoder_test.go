@@ -8,7 +8,8 @@ import (
 	"testing"
 )
 
-/// TODO Test extracting Address from Google Reverse Geocoding Response
+// Asserts that golang-geo rextracts the correct address 
+// From a known successful google geocode response.
 func TestExtractAddressFromResponse(t *testing.T) {
 	g := &GoogleGeocoder{}
 
@@ -23,7 +24,8 @@ func TestExtractAddressFromResponse(t *testing.T) {
 	}
 }
 
-// TODO Test extracting LatLng from Google Geocoding Response
+// Asserts that golang-geo extracts the correct Lat and Lng values 
+// From a known successful google geocoder response.
 func TestExtractLatLngFromRequest(t *testing.T) {
 	g := &GoogleGeocoder{}
 	
@@ -38,7 +40,7 @@ func TestExtractLatLngFromRequest(t *testing.T) {
 	}
 }
 
-
+// Returns a byte array that represents the response of the google api request
 func GetMockResponse(s string) ([]byte, error)  {
 	dataPath := path.Join(s)
 	_, readErr := os.Stat(dataPath)

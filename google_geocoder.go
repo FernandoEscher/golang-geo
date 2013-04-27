@@ -10,6 +10,9 @@ import (
 
 type GoogleGeocoder struct{}
 
+// @param [string] params.  The HTTP params in which to append to the google geocode api request. 
+// @return [[]byte].  Returns a []byte representation of a JSON response
+//                    From the requested method defined by the passed in paramter string 
 func (g *GoogleGeocoder) Request(params string) ([]byte, error) {
 	client := &http.Client{}
 

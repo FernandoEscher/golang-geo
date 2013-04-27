@@ -5,7 +5,8 @@ import (
 	"testing"
 )
 
-// Seems brittle :\
+// TODO Revisit, Seems brittle :\
+// Asserts that two points at known locations are a specific distance apart
 func TestGreatCircleDistance(t *testing.T) {
 	// Test that SEA and SFO are ~ 1091km apart, accurate to 100 meters.
 	sea := &Point{lat: 47.44745785, lng: -122.308065668024}
@@ -19,6 +20,8 @@ func TestGreatCircleDistance(t *testing.T) {
 	}
 }
 
+// TODO Revisit, Seems brittle :\
+// Asserts that two points at known locations are a specific distance apart at a given bearing
 func TestPointAtDistanceAndBearing(t *testing.T) {
 	sea := &Point{lat: 47.44745785, lng: -122.308065668024}
 	p := sea.PointAtDistanceAndBearing(1090.7, 180)
