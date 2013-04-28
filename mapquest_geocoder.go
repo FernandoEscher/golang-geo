@@ -10,7 +10,7 @@ import (
 )
 
 // A Geocoder that makes use of open street map's geocoding service
-type MapQuestGeocoder struct {}
+type MapQuestGeocoder struct{}
 
 // @param [string] url.  The URL suffix used to query the nominaim API.
 // @return [[] byte] data.  The resultant JSON body from the HTTP API Request.

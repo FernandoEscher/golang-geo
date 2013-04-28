@@ -11,7 +11,7 @@ import (
 // @return [*SQLMapper]. An instantiated SQLMapper struct with the DefaultSQLConf.
 // @return [Error]. Any error that might have occured during instantiating the SQLMapper.  
 func HandleWithSQL() (*SQLMapper, error) {
-	sqlConf, sqlConfErr := GetSQLConf()
+	sqlConf, sqlConfErr := GetSQLConf("config/geo.yml")
 	if sqlConfErr == nil {
 		s := &SQLMapper{conf: sqlConf}
 

@@ -7,6 +7,11 @@ import (
 	"path"
 )
 
+const (
+	_                      = iota
+	GOLANG_GEO_CONFIG_PATH = "config/geo.yml"
+)
+
 // Provides the configuration to query the database as necessary
 type SQLConf struct {
 	driver  string
@@ -24,9 +29,9 @@ var DefaultSQLConf = &SQLConf{driver: "postgres", openStr: defaultOpenStr, table
 // Returns the DefaultSQLConf if no config/geo.yml is found.
 // @return [*SQLConf].  The SQLConfiguration, as supplied with config/geo.yml
 // @return [Error].  Any error that might occur while grabbing configuration
-func GetSQLConf() (*SQLConf, error) {
-	configPath := path.Join("config/geo.yml")
-	_, err := os.Stat(configPath)
+func GetSQLConf(configPath string) (*SQLConf, error) {
+	absoluteConfigPath := path.Join(configPath)
+	_, err := os.Stat(absoluteConfigPath)
 	if err != nil && os.IsNotExist(err) {
 		return DefaultSQLConf, nil
 	} else {
@@ -40,7 +45,7 @@ func GetSQLConf() (*SQLConf, error) {
 			goEnv = "development"
 		}
 
-		config, readYamlErr := yaml.ReadFile(configPath)
+		config, readYamlErr := yaml.ReadFile(absoluteConfigPath)
 		if readYamlErr == nil {
 
 			// TODO Refactor this into a more generic method of retrieving info
